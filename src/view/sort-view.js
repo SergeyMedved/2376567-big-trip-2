@@ -17,8 +17,27 @@ function createSortTemplate() {
   );
 }
 
-export default class SortView extends AbstractView {
+export default class SortView extends AbstractView {// нужно добавить конструктор для инициализации метода
+
+  constructor() {
+    super(); // добавляется т.к. есть родительский класс AbstractView
+    this._sortInputClickHandler = this._sortInputClickHandler.bind(this);// инициализируем clickhandler в конструкторе для привязски контекста
+  }
+
   get template() {
     return createSortTemplate();
   }
+
+  _sortInputClickHandler(evt) {
+    evt.preventDefault();
+    if (evt.target.closest('.trip-sort__btn')) {
+      this._callback.sortInputClick(evt);
+    }
+  }
+
+  setSortInputClickHandler(callback) {
+    this._callback.sortInputClick = callback;
+    document.querySelector('.trip-sort').addEventListener('click', this._sortInputClickHandler);
+  }
+
 }

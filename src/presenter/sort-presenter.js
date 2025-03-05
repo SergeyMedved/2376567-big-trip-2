@@ -10,5 +10,6 @@ export default class SortPresenter {
   init() {
     const sortView = new SortView();
     render(sortView, this.#container);
+    sortView.setSortInputClickHandler((evt) => console.log(evt));
   }
 }
